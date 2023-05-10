@@ -21,19 +21,20 @@
                 }
                 post{
                     success{
-                        echo 'Unit and Integration Tests Success'
-                        mail to: "dennispfy@gmail.com",
-                        subject: "Unit and Integration Tests",
-                        body: "Test Success"
-                    }
+                            echo 'Unit and Integration Tests Success'
+                            emailext to: 'dennispfy@gmail.com',
+                            subject: 'Unit and Integration Tests',
+                            body: 'Unit and Integration Tests successfully passed, logs attached',
+                            attachLog: true
+                            }
                     failure{
-                        echo 'Unit and Integration Tests Failed'
-                        mail to: "dennispfy@gmail.com",
-                        subject: "Unit and Integration Tests",
-                        body: "Test Failed"}
-
+                                echo 'Unit and Integration Tests Failed'
+                                emailext to: 'dennispfy@gmail.com',
+                                subject: 'Unit and Integration Tests',
+                                body: 'Unit and Integration Tests failed, logs attached',
+                                attachLog: true
                     
-                }
+                            }
             }
 
             stage('Code Analysis'){
@@ -45,38 +46,27 @@
             stage('Security Scan'){
                 steps{
                     echo "Check the security of the code by Checkmarx"
-               
                     }
 
                     post{
 
-                    success{
-                        // echo 'Security Scan Success'
-                        // mail to: "dennispfy@gmail.com",
-                        // subject: "Security Scan",
-                        // body: "Security Scan Success",
-                        // attachmentsPattern: 'build.log'
-                        emailext to: "dennispfy@gmail.com",
-                        subject: "Test Email",
-                        body: "Test",
-                        attachLog: true
+                        success{
+                            echo 'Security Scan Success'
+                            emailext to: 'dennispfy@gmail.com',
+                            subject: 'Security Scan',
+                            body: 'Security Scan successfully passed, logs attached',
+                            attachLog: true
+                            }
 
-                        //emailext attachmentsPattern: 'Scan.log', body: 'Find attachments', subject: 'test', to: 'dennispfy@gmail.com'
-
-
-
+                        success{
+                            echo 'Security Scan Failed'
+                            emailext to: 'dennispfy@gmail.com',
+                            subject: 'Security Scan',
+                            body: 'Security Scan failed, logs attached',
+                            attachLog: true
+                            }
                     }
-
-                    failure{
-                        echo 'Security Scan Failed'
-                        //mail to: "dennispfy@gmail.com",
-                        //subject: "Security Scan",
-                        //body: "Security Scan Failed"
-                        //emailext body: 'The build failed. Logs are attached.', subject: 'Build Failure ', attachmentsPattern: 'build.log', to: 'dennispfy@gmail.com'
-
-                    }
-                }
-            }
+            }   
             
             stage('Deploy to staging'){
                 steps{
@@ -86,7 +76,7 @@
             
             stage('Integration Tests on Staging'){
                 steps{
-                    echo "Run integration tests on the $TESTING_ENVIRONMENT environment"
+                    echo "Run integration tests on the TESTING_ENVIRONMENT environment"
                 }
             }
             stage('Deploy to production'){
