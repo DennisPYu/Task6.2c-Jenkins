@@ -51,11 +51,15 @@
                     post{
 
                     success{
-                        echo 'Security Scan Success'
-                        mail to: "dennispfy@gmail.com",
-                        subject: "Security Scan",
-                        body: "Security Scan Success",
-                        attachmentsPattern: 'build.log'
+                        // echo 'Security Scan Success'
+                        // mail to: "dennispfy@gmail.com",
+                        // subject: "Security Scan",
+                        // body: "Security Scan Success",
+                        // attachmentsPattern: 'build.log'
+
+                        emailext attachmentsPattern: 'Scan.log', body: "ss", 
+                    subject: "Failed", 
+                    to: "dennispfy@gmail.com"
 
 
                     }
