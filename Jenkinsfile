@@ -52,20 +52,20 @@
 
                     success{
                         echo 'Security Scan Success'
-                        mail to: "dennispfy@gmail.com",
-                        subject: "Security Scan",
-                        body: "Security Scan Success"
-                        emailext body: 'The build succeeded. Logs are attached.', subject: 'Build Success - ${JOB_NAME} #${BUILD_NUMBER}', attachmentsPattern: 'build.log', to: 'dennispfy@gmail.com'
+                        //mail to: "dennispfy@gmail.com",
+                        //subject: "Security Scan",
+                        //body: "Security Scan Success"
+                        emailext body: 'The build succeeded. Logs are attached.', subject: 'Build Success ', attachmentsPattern: 'build.log', to: 'dennispfy@gmail.com'
 
 
                     }
 
                     failure{
                         echo 'Security Scan Failed'
-                        mail to: "dennispfy@gmail.com",
-                        subject: "Security Scan",
-                        body: "Security Scan Failed"
-                        emailext body: 'The build failed. Logs are attached.', subject: 'Build Failure - ${JOB_NAME} #${BUILD_NUMBER}', attachmentsPattern: 'build.log', to: 'dennispfy@gmail.com'
+                        //mail to: "dennispfy@gmail.com",
+                        //subject: "Security Scan",
+                        //body: "Security Scan Failed"
+                        emailext body: 'The build failed. Logs are attached.', subject: 'Build Failure ', attachmentsPattern: 'build.log', to: 'dennispfy@gmail.com'
 
                     }
                 }
