@@ -58,5 +58,10 @@
                     echo "Deploy the application to the $PRODUCTION_ENVIRONMENT environment"
                 }
             }
+            stage('Complete'){
+                steps{
+                    echo 'Deployment completed!'
+                }
+            }
         }
     }
