@@ -6,60 +6,82 @@
             PRODUCTION_ENVIRONMENT = 'DennisYu'
         }
         stages{
+
             stage('Build'){
                 steps{
-                    echo 'Fetch the source ode frome the $DIRECTORY_PATH'
+                    echo 'Compile and package files from the $DIRECTORY_PATH using Maven'
+                }
+            
+            }
+            
+            stage('Unit and Integration Tests'){
+                steps{
+                    echo 'Unit Tests by Citrus'
+                    echo 'Integration Tests by Citrus '
                 }
                 post{
                     success{
-                        echo 'Build Success'
+                        echo 'Unit and Integration Tests Success'
                         mail to: "dennispfy@gmail.com",
-                        subject: "Build Success",
-                        body: "Build Success"
+                        subject: "Unit and Integration Tests",
+                        body: "Test Success"
                     }
                     failure{
-                        echo 'Build Failure'
+                        echo 'Unit and Integration Tests Failed'
                         mail to: "dennispfy@gmail.com",
-                        subject: "Build Failure",
-                        body: "Build Failure"
-                    }
-                }
-            
-            }
-            
-            stage('Test'){
-                steps{
-                    echo 'Unit Tests'
-                    echo 'Integration Tests'
+                        subject: "Unit and Integration Tests",
+                        body: "Test Failed"}
+
+                    
                 }
             }
 
-            stage('Code Quality Check'){
+            stage('Code Analysis'){
                 steps{
-                    echo 'Check th equalilty of the code'
+                    echo 'Check th equalilty of the code by SonarQube'
                 }
             }
 
-            stage('Deploy'){
+            stage('Security Scan'){
                 steps{
-                    echo "Deploy the application to a $TESTING_ENVIRONMENT environment"
+                    echo "Check the security of the code by Checkmarx"
                     }
-            }
-            
-            stage('Approval'){
-                steps{
-                    echo 'Approval started and completed!'
+
+                    post{
+
+                    success{
+                        echo 'Security Scan Success'
+                        mail to: "dennispfy@gmail.com",
+                        subject: "Security Scan",
+                        body: "Security Scan Success"
+                        email-ext {
+                            attachLog true
+                        }
+                    }
+
+                    failure{
+                        echo 'Security Scan Failed'
+                        mail to: "dennispfy@gmail.com",
+                        subject: "Security Scan",
+                        body: "Security Scan Failed"
+                    }
                 }
             }
             
-            stage('Deploy to Production'){
+            stage('Deploy to staging'){
                 steps{
-                    echo "Deploy the application to the $PRODUCTION_ENVIRONMENT environment"
+                    echo 'Deploy the application to the AWS $TESTING_ENVIRONMENT environment'
                 }
             }
-            stage('Complete'){
+            
+            stage('Integration Tests on Staging'){
                 steps{
-                    echo 'Deployment completed!'
+                    echo "Run integration tests on the $TESTING_ENVIRONMENT environment"
+                }
+            }
+            stage('Deploy to production'){
+                steps{
+                    echo 'Deploy the application to the AWS $PRODUCTION_ENVIRONMENT environment'
                 }
             }
         }
