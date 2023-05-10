@@ -5,6 +5,7 @@
             TESTING_ENVIRONMENT = 'testing'
             PRODUCTION_ENVIRONMENT = 'DennisYu'
         }
+
         stages{
 
             stage('Build'){
@@ -35,6 +36,7 @@
                                 attachLog: true
                     
                             }
+                    }
             }
 
             stage('Code Analysis'){
@@ -48,24 +50,24 @@
                     echo "Check the security of the code by Checkmarx"
                     }
 
-                    post{
+                post{
 
-                        success{
-                            echo 'Security Scan Success'
-                            emailext to: 'dennispfy@gmail.com',
-                            subject: 'Security Scan',
-                            body: 'Security Scan successfully passed, logs attached',
-                            attachLog: true
-                            }
+                    success{
+                        echo 'Security Scan Success'
+                        emailext to: 'dennispfy@gmail.com',
+                        subject: 'Security Scan',
+                        body: 'Security Scan successfully passed, logs attached',
+                        attachLog: true
+                        }
 
-                        success{
-                            echo 'Security Scan Failed'
-                            emailext to: 'dennispfy@gmail.com',
-                            subject: 'Security Scan',
-                            body: 'Security Scan failed, logs attached',
-                            attachLog: true
-                            }
-                    }
+                    failure{
+                        echo 'Security Scan Failed'
+                        emailext to: 'dennispfy@gmail.com',
+                        subject: 'Security Scan',
+                        body: 'Security Scan failed, logs attached',
+                        attachLog: true
+                        }
+                }
             }   
             
             stage('Deploy to staging'){
