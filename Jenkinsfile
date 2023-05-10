@@ -54,9 +54,8 @@
                         mail to: "dennispfy@gmail.com",
                         subject: "Security Scan",
                         body: "Security Scan Success"
-                        email-ext {
-                            attachLog true
-                        }
+                        //email attchement  
+                        emailext attachLog: true, body: 'Security Scan Success', subject: 'Security Scan', to: 'dennispfy@gmail.com"
                     }
 
                     failure{
