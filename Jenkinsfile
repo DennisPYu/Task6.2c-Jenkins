@@ -45,7 +45,7 @@
             stage('Security Scan'){
                 steps{
                     echo "Check the security of the code by Checkmarx"
-                     bat 'make > Scan.log 2>&1'
+                    echo "log">DIRECTORY_PATH\\new.txt
                     }
 
                     post{
