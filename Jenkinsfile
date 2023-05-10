@@ -45,6 +45,7 @@
             stage('Security Scan'){
                 steps{
                     echo "Check the security of the code by Checkmarx"
+                     bat 'make > Scan.log 2>&1'
                     }
 
                     post{
@@ -54,8 +55,9 @@
                         mail to: "dennispfy@gmail.com",
                         subject: "Security Scan",
                         body: "Security Scan Success"
-                        //email attchement  
-                        emailext attachLog: true, body: 'Security Scan Success', subject: 'Security Scan', to: "dennispfy@gmail.com"
+                        emailext body: 'The build succeeded. Logs are attached.', subject: 'Build Success - ${JOB_NAME} #${BUILD_NUMBER}', attachmentsPattern: 'build.log', to: 'dennispfy@gmail.com'
+
+
                     }
 
                     failure{
@@ -63,6 +65,8 @@
                         mail to: "dennispfy@gmail.com",
                         subject: "Security Scan",
                         body: "Security Scan Failed"
+                        emailext body: 'The build failed. Logs are attached.', subject: 'Build Failure - ${JOB_NAME} #${BUILD_NUMBER}', attachmentsPattern: 'build.log', to: 'dennispfy@gmail.com'
+
                     }
                 }
             }
