@@ -1,7 +1,7 @@
     pipeline{
         agent any
         environment{
-            DIRECTORY_PATH = 'C:\\Users\\fudff\\Desktop\\BachelorL\\2023T1\\SIT223'
+            DIRECTORY_PATH = 'C:\\Users\\fudff\\Desktop\\BachelorL\\2023T1\\SIT223\\Task6.2c-Jenkins'
             TESTING_ENVIRONMENT = 'testing'
             PRODUCTION_ENVIRONMENT = 'DennisYu'
         }
@@ -48,7 +48,6 @@
             
             stage('Approval'){
                 steps{
-                    sleep 10
                     echo 'Approval started and completed!'
                 }
             }
