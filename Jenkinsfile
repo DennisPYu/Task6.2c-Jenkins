@@ -45,7 +45,7 @@
             stage('Security Scan'){
                 steps{
                     echo "Check the security of the code by Checkmarx"
-                    echo "log">DIRECTORY_PATH\\new.txt
+               
                     }
 
                     post{
@@ -56,10 +56,13 @@
                         // subject: "Security Scan",
                         // body: "Security Scan Success",
                         // attachmentsPattern: 'build.log'
+                        emailext to: "dennispfy@gmail.com",
+                        subject: "Test Email",
+                        body: "Test",
+                        attachLog: true
 
-                        emailext attachmentsPattern: 'Scan.log', body: "ss", 
-                    subject: "Failed", 
-                    to: "dennispfy@gmail.com"
+                        //emailext attachmentsPattern: 'Scan.log', body: 'Find attachments', subject: 'test', to: 'dennispfy@gmail.com'
+
 
 
                     }
